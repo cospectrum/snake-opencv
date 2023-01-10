@@ -47,9 +47,9 @@ IMREAD_REDUCED_GRAYSCALE_8 = 64
 IMREAD_UNCHANGED = -1
 
 
-def imread(filename: str, flags: int = IMREAD_COLOR) -> np.ndarray:
-    return cv2.imread(filename, flags)
+def imread(filename: str, flag: int = IMREAD_COLOR) -> np.ndarray:
+    return cv2.imread(filename, flag)
 
 
-def imwrite(filename: str, img: np.ndarray) -> bool:
-    return cv2.imwrite(filename, img)
+def imwrite(filename: str, image: np.ndarray) -> bool:
+    return cv2.imwrite(filename, image)
