@@ -1,13 +1,14 @@
 import cv2
 import numpy as np
 
-from typing import Tuple, Optional, Literal
+from typing import Tuple, Optional, Literal, Union
 
 
 __all__ = [
     'resize',
     'cvt_color',
     'rectangle',
+    'circle',
     'INTER_AREA',
     'INTER_BITS',
     'INTER_BITS2',
@@ -720,13 +721,14 @@ def cvt_color(
 
 X = int
 Y = int
+Color = Union[Tuple, int]
 
 
 def rectangle(
     image: np.ndarray,
     start_point: Tuple[X, Y],
     end_port: Tuple[X, Y],
-    color: Tuple,
+    color: Color,
     thickness: int = 1,
     line_type: LineType = 8,
     shift: int = 0,
@@ -735,6 +737,26 @@ def rectangle(
         image,
         start_point,
         end_port,
+        color,
+        thickness,
+        line_type,
+        shift=shift,
+    )
+
+
+def circle(
+    image: np.ndarray,
+    center: Tuple[X, Y],
+    radius: int,
+    color: Color,
+    thickness: int = 1,
+    line_type: LineType = 8,
+    shift: int = 0,
+) -> np.ndarray:
+    return cv2.circle(
+        image,
+        center,
+        radius,
         color,
         thickness,
         line_type,

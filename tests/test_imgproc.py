@@ -54,6 +54,15 @@ def test_rectangle(test_image: np.ndarray) -> None:
     assert not eq(-left, right)
 
 
+def test_circle(test_image: np.ndarray) -> None:
+    center = (5, 5)
+    radius = 3
+    color = 100
+    left = cv.circle(test_image, center=center, radius=radius, color=color)
+    right = cv2.circle(test_image, center=center, radius=radius, color=color)
+    assert eq(left, right)
+
+
 def get_size(image: np.ndarray) -> Size:
     return tuple(reversed(image.shape[:2]))  # type: ignore
 
