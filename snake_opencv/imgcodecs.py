@@ -3,6 +3,8 @@ import numpy as np
 
 
 __all__ = [
+    'imread',
+    'imwrite',
     'IMREAD_ANYCOLOR',
     'IMREAD_ANYDEPTH',
     'IMREAD_COLOR',
@@ -15,8 +17,6 @@ __all__ = [
     'IMREAD_REDUCED_GRAYSCALE_4',
     'IMREAD_REDUCED_GRAYSCALE_8',
     'IMREAD_UNCHANGED',
-    'imread',
-    'imwrite',
 ]
 
 # If set, the image is read in any possible color format.

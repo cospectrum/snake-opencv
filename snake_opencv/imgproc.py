@@ -1,10 +1,13 @@
 import cv2
 import numpy as np
 
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Literal
 
 
 __all__ = [
+    'resize',
+    'cvt_color',
+    'rectangle',
     'INTER_AREA',
     'INTER_BITS',
     'INTER_BITS2',
@@ -259,8 +262,10 @@ __all__ = [
     'COLOR_YUV420sp2RGB',
     'COLOR_YUV420sp2RGBA',
     'COLOR_mRGBA2RGBA',
-    'resize',
-    'cvt_color',
+    'FILLED',
+    'LINE_4',
+    'LINE_8',
+    'LINE_AA',
 ]
 
 # resampling using pixel area relation. It may be a preferred method for image decimation, as
@@ -671,6 +676,16 @@ COLOR_YUV420sp2RGBA = 96
 # alpha premultiplication
 COLOR_mRGBA2RGBA = 126
 
+FILLED = -1
+# 4-connected line
+LINE_4 = 4
+# 8-connected line
+LINE_8 = 8
+# antialiased line
+LINE_AA = 16
+
+LineType = Literal[-1, 4, 8, 16]
+
 
 Width = int
 Height = int
@@ -701,3 +716,27 @@ def cvt_color(
     dst_cn: int = 0,
 ) -> np.ndarray:
     return cv2.cvtColor(src, code, dst, dst_cn)
+
+
+X = int
+Y = int
+
+
+def rectangle(
+    image: np.ndarray,
+    start_point: Tuple[X, Y],
+    end_port: Tuple[X, Y],
+    color: Tuple,
+    thickness: int = 1,
+    line_type: LineType = 8,
+    shift: int = 0,
+) -> np.ndarray:
+    return cv2.rectangle(
+        image,
+        start_point,
+        end_port,
+        color,
+        thickness,
+        line_type,
+        shift=shift,
+    )

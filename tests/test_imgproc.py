@@ -33,6 +33,27 @@ def test_cvt_color(test_image: np.ndarray) -> None:
     assert eq(left, right)
 
 
+def test_rectangle(test_image: np.ndarray) -> None:
+    start_point = (1, 1)
+    end_point = (40, 40)
+    color = (24, 24, 0)
+
+    left = cv.rectangle(
+        test_image,
+        start_point,
+        end_point,
+        color=color,
+    )
+    right = cv2.rectangle(
+        test_image,
+        start_point,
+        end_point,
+        color,
+    )
+    assert eq(left, right)
+    assert not eq(-left, right)
+
+
 def get_size(image: np.ndarray) -> Size:
     return tuple(reversed(image.shape[:2]))  # type: ignore
 
