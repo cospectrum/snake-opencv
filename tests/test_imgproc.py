@@ -27,6 +27,12 @@ def test_resize(test_image: np.ndarray) -> None:
     assert eq(left, right)
 
 
+def test_cvt_color(test_image: np.ndarray) -> None:
+    left = cv.cvt_color(test_image, cv.COLOR_BGR2RGB)
+    right = cv2.cvtColor(test_image, cv2.COLOR_BGR2RGB)
+    assert eq(left, right)
+
+
 def get_size(image: np.ndarray) -> Size:
     return tuple(reversed(image.shape[:2]))  # type: ignore
 
