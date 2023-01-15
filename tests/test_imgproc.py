@@ -70,7 +70,7 @@ def test_put_text(test_image: np.ndarray) -> None:
     thickness = 2
     color = (255, 0, 0)
     image = cv.put_text(
-        test_image,
+        test_image.copy(),
         text,
         org,
         font,
@@ -80,6 +80,15 @@ def test_put_text(test_image: np.ndarray) -> None:
     )
     cv.imshow('put text', image)
     cv.wait_key(1000)
+
+
+def test_canny(test_image: np.ndarray) -> None:
+    threshold1 = 30
+    threshold2 = 200
+    left = cv.canny(test_image, threshold1, threshold2)
+    assert isinstance(left, np.ndarray)
+    right = cv2.Canny(test_image, threshold1, threshold2)
+    assert eq(left, right)
 
 
 def get_size(image: np.ndarray) -> Size:

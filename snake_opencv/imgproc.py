@@ -10,6 +10,7 @@ __all__ = [
     'rectangle',
     'circle',
     'put_text',
+    'canny',
     'ADAPTIVE_THRESH_GAUSSIAN_C',
     'ADAPTIVE_THRESH_MEAN_C',
     'CCL_BBDT',
@@ -1281,4 +1282,22 @@ def put_text(
         thickness,
         line_type,
         bottom_left_origin,
+    )
+
+
+def canny(
+    image: np.ndarray,
+    threshold1: float,
+    threshold2: float,
+    edges: Optional[np.ndarray] = None,
+    aperture_size: int = 3,
+    l2gradient: bool = False,
+) -> np.ndarray:
+    return cv2.Canny(
+        image,
+        threshold1,
+        threshold2,
+        edges=edges,
+        apertureSize=aperture_size,
+        L2gradient=l2gradient,
     )
