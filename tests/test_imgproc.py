@@ -90,7 +90,9 @@ def test_canny(test_image: np.ndarray) -> None:
     right = cv2.Canny(test_image, threshold1, threshold2)
     assert eq(left, right)
 
-    edges = left.copy()
+
+def test_contours(test_image: np.ndarray) -> None:
+    edges = cv.canny(test_image, 30, 200)
     contoures, hierarchy = cv.find_contours(
         edges,
         cv.RETR_EXTERNAL,
@@ -105,6 +107,9 @@ def test_canny(test_image: np.ndarray) -> None:
         assert eq(left, right)
 
     assert eq(hierarchy, right_hierarchy)
+    cv.draw_contours(edges, contoures, contour_idx=-1, color=(0, 255, 0))
+    cv.imshow('contoures', edges)
+    cv.wait_key(1000)
 
 
 def get_size(image: np.ndarray) -> Size:
