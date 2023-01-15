@@ -63,6 +63,25 @@ def test_circle(test_image: np.ndarray) -> None:
     assert eq(left, right)
 
 
+def test_put_text(test_image: np.ndarray) -> None:
+    text = 'text'
+    org = (10, 10)
+    font = cv.FONT_HERSHEY_COMPLEX
+    thickness = 2
+    color = (255, 0, 0)
+    image = cv.put_text(
+        test_image,
+        text,
+        org,
+        font,
+        font_scale=1,
+        color=color,
+        thickness=thickness,
+    )
+    cv.imshow('put text', image)
+    cv.wait_key(1000)
+
+
 def get_size(image: np.ndarray) -> Size:
     return tuple(reversed(image.shape[:2]))  # type: ignore
 
