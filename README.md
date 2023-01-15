@@ -15,4 +15,6 @@ import snake_opencv as cv
 
 image = cv.imread(path)
 image = cv.cvt_color(image, cv.COLOR_BGR2RGB)
+
+cv.imshow(window_name, image) 
 ```
