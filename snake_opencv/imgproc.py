@@ -11,6 +11,7 @@ __all__ = [
     'circle',
     'put_text',
     'canny',
+    'find_contours',
     'ADAPTIVE_THRESH_GAUSSIAN_C',
     'ADAPTIVE_THRESH_MEAN_C',
     'CCL_BBDT',
@@ -1301,3 +1302,16 @@ def canny(
         apertureSize=aperture_size,
         L2gradient=l2gradient,
     )
+
+
+Contours = Tuple[np.ndarray, ...]
+Hierarchy = np.ndarray
+
+
+def find_contours(
+    image: np.ndarray,
+    mode: int,
+    method: int,
+    offset: Optional[Tuple[X, Y]] = None,
+) -> Tuple[Contours, Hierarchy]:
+    return cv2.findContours(image, mode=mode, method=method, offset=offset)

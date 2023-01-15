@@ -90,6 +90,22 @@ def test_canny(test_image: np.ndarray) -> None:
     right = cv2.Canny(test_image, threshold1, threshold2)
     assert eq(left, right)
 
+    edges = left.copy()
+    contoures, hierarchy = cv.find_contours(
+        edges,
+        cv.RETR_EXTERNAL,
+        cv.CHAIN_APPROX_NONE,
+    )
+    right_contoures, right_hierarchy = cv2.findContours(
+        edges,
+        cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_NONE,
+    )
+    for left, right in zip(contoures, right_contoures):
+        assert eq(left, right)
+
+    assert eq(hierarchy, right_hierarchy)
+
 
 def get_size(image: np.ndarray) -> Size:
     return tuple(reversed(image.shape[:2]))  # type: ignore
