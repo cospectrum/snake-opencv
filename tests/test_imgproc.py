@@ -126,3 +126,15 @@ def test_gaussian_blur(test_image: np.ndarray) -> None:
     left = cv.gaussian_blur(test_image, ksize, sigma_x)
     right = cv2.GaussianBlur(test_image, ksize, sigma_x)
     assert eq(left, right)
+
+
+def test_hough_lines(chess_board: np.ndarray) -> None:
+    rho = 1.
+    theta = 3.1415 / 180
+    threshold = 150
+    image = cv.canny(chess_board, 100, 200)
+
+    left = cv.hough_lines(image, rho, theta, threshold)
+    right = cv2.HoughLines(image, rho, theta, threshold)
+    assert left is not None
+    assert eq(left, right)

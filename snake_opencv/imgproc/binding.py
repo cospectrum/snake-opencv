@@ -4,7 +4,10 @@ import numpy as np
 from typing import Tuple, Optional, Literal, Union
 
 from .const import INTER_LINEAR
-from ..core import BORDER_DEFAULT
+from ..core import (
+    BORDER_DEFAULT,
+    CV_PI,
+)
 
 
 __all__ = [
@@ -17,6 +20,7 @@ __all__ = [
     'find_contours',
     'draw_contours',
     'gaussian_blur',
+    'hough_lines',
 ]
 
 
@@ -235,3 +239,27 @@ def gaussian_blur(
     border_type: int = BORDER_DEFAULT,
 ) -> np.ndarray:
     return cv2.GaussianBlur(src, ksize, sigma_x, dst, sigma_y, border_type)
+
+
+def hough_lines(
+    image: np.ndarray,
+    rho: float,
+    theta: float,
+    threshold: int,
+    lines: Optional[np.ndarray] = None,
+    srn: float = 0.,
+    stn: float = 0.,
+    min_theta: float = 0.,
+    max_theta: float = CV_PI,
+) -> Optional[np.ndarray]:
+    return cv2.HoughLines(
+        image,
+        rho=rho,
+        theta=theta,
+        threshold=threshold,
+        lines=lines,
+        srn=srn,
+        stn=stn,
+        min_theta=min_theta,
+        max_theta=max_theta,
+    )
