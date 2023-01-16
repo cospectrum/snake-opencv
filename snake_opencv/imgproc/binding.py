@@ -122,7 +122,7 @@ def fill_poly(
     color: Scalar,
     line_type: LineType = 8,
     shift: int = 0,
-    offset: Optional[tuple[X, Y]] = None,
+    offset: Optional[Tuple[X, Y]] = None,
 ) -> np.ndarray:
     return cv2.fillPoly(image, pts, color, line_type, shift, offset)
 

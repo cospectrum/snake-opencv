@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "snake_opencv"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8.1"
 opencv-python = "^4.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -17,7 +17,7 @@ pytest = "^7.2.0"
 
 [tool.mypy]
 ignore_missing_imports = true
-python_version = "3.9"
+python_version = "3.8"
 
 [build-system]
 requires = ["poetry-core"]
