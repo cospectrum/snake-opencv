@@ -160,3 +160,14 @@ def test_hough_lines_p(chess_board: np.ndarray) -> None:
 
     cv.imshow('hough_lines_p', image)
     cv.wait_key(1000)
+
+
+def test_rect() -> None:
+    points = np.array([[0, 0], [3, 0], [3, 3], [0, 3]])
+    left_rect = cv.min_area_rect(points)
+    right_rect = cv2.minAreaRect(points)
+    assert left_rect == right_rect
+
+    left_box = cv.box_points(left_rect)
+    right_box = cv2.boxPoints(left_rect)
+    assert eq(left_box, right_box)

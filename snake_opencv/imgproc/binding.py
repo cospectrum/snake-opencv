@@ -23,6 +23,8 @@ __all__ = [
     'gaussian_blur',
     'hough_lines',
     'hough_lines_p',
+    'min_area_rect',
+    'box_points',
 ]
 
 
@@ -289,3 +291,19 @@ def hough_lines_p(
         min_line_length,
         max_line_gap,
     )
+
+
+Center = Tuple[X, Y]
+Angle = float
+RotatedRect = Tuple[Center, Tuple[Width, Height], Angle]
+
+
+def min_area_rect(points: np.ndarray) -> RotatedRect:
+    return cv2.minAreaRect(points)
+
+
+def box_points(
+    box: RotatedRect,
+    points: Optional[np.ndarray] = None,
+) -> np.ndarray:
+    return cv2.boxPoints(box, points)
