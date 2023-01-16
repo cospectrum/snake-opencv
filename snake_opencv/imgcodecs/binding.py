@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from typing import Optional
+
 from .const import IMREAD_COLOR
 
 
@@ -10,7 +12,7 @@ __all__ = [
 ]
 
 
-def imread(filename: str, flag: int = IMREAD_COLOR) -> np.ndarray:
+def imread(filename: str, flag: int = IMREAD_COLOR) -> Optional[np.ndarray]:
     return cv2.imread(filename, flag)
 
 

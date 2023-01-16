@@ -15,12 +15,14 @@ __all__ = [
     'cvt_color',
     'rectangle',
     'circle',
+    'line',
     'put_text',
     'canny',
     'find_contours',
     'draw_contours',
     'gaussian_blur',
     'hough_lines',
+    'hough_lines_p',
 ]
 
 
@@ -65,22 +67,14 @@ Color = Union[Tuple, int]
 
 def rectangle(
     image: np.ndarray,
-    start_point: Tuple[X, Y],
-    end_port: Tuple[X, Y],
+    pt1: Tuple[X, Y],
+    pt2: Tuple[X, Y],
     color: Color,
     thickness: int = 1,
     line_type: LineType = 8,
     shift: int = 0,
 ) -> np.ndarray:
-    return cv2.rectangle(
-        image,
-        start_point,
-        end_port,
-        color,
-        thickness,
-        line_type,
-        shift=shift,
-    )
+    return cv2.rectangle(image, pt1, pt2, color, thickness, line_type, shift)
 
 
 def circle(
@@ -101,6 +95,18 @@ def circle(
         line_type,
         shift=shift,
     )
+
+
+def line(
+    image: np.ndarray,
+    pt1: Tuple[X, Y],
+    pt2: Tuple[X, Y],
+    color: Color,
+    thickness: int = 1,
+    line_type: LineType = 8,
+    shift: int = 0,
+) -> np.ndarray:
+    return cv2.line(image, pt1, pt2, color, thickness, line_type, shift)
 
 
 def put_text(
@@ -262,4 +268,24 @@ def hough_lines(
         stn=stn,
         min_theta=min_theta,
         max_theta=max_theta,
+    )
+
+
+def hough_lines_p(
+    image: np.ndarray,
+    rho: float,
+    theta: float,
+    threshold: int,
+    lines: Optional[np.ndarray] = None,
+    min_line_length: float = 0.,
+    max_line_gap: float = 0.,
+) -> Optional[np.ndarray]:
+    return cv2.HoughLinesP(
+        image,
+        rho,
+        theta,
+        threshold,
+        lines,
+        min_line_length,
+        max_line_gap,
     )

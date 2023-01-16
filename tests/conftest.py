@@ -15,9 +15,13 @@ def image_path() -> str:
 
 @pytest.fixture
 def test_image(image_path) -> np.ndarray:
-    return cv.imread(image_path)
+    image = cv.imread(image_path)
+    assert image is not None
+    return image
 
 
 @pytest.fixture
 def chess_board() -> np.ndarray:
-    return cv.imread(CHESS_BOARD)
+    image = cv.imread(CHESS_BOARD)
+    assert image is not None
+    return image

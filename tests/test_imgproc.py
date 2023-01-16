@@ -138,3 +138,25 @@ def test_hough_lines(chess_board: np.ndarray) -> None:
     right = cv2.HoughLines(image, rho, theta, threshold)
     assert left is not None
     assert eq(left, right)
+
+
+def test_hough_lines_p(chess_board: np.ndarray) -> None:
+    image = cv.canny(chess_board, 100, 200)
+    rho = 1.
+    theta = 3.1415 / 180
+    threshold = 150
+
+    left = cv.hough_lines_p(image, rho, theta, threshold)
+    right = cv2.HoughLinesP(image, rho, theta, threshold)
+    assert left is not None
+    assert eq(left, right)
+
+    color = (0, 255, 0)
+    for points in left:
+        x1, y1, x2, y2 = points[0]
+        pt1 = (x1, y1)
+        pt2 = (x2, y2)
+        cv.line(image, pt1, pt2, color)
+
+    cv.imshow('hough_lines_p', image)
+    cv.wait_key(1000)

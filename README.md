@@ -1,5 +1,5 @@
 # Snake-OpenCV
-Snake case OpenCV with type annotations for python
+Snake case OpenCV with type annotations for Python
 
 
 ## Install
