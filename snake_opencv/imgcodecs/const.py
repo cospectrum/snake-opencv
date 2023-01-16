@@ -1,24 +1,3 @@
-import cv2
-import numpy as np
-
-
-__all__ = [
-    'imread',
-    'imwrite',
-    'IMREAD_ANYCOLOR',
-    'IMREAD_ANYDEPTH',
-    'IMREAD_COLOR',
-    'IMREAD_GRAYSCALE',
-    'IMREAD_IGNORE_ORIENTATION',
-    'IMREAD_LOAD_GDAL',
-    'IMREAD_REDUCED_COLOR_2',
-    'IMREAD_REDUCED_COLOR_4',
-    'IMREAD_REDUCED_COLOR_8',
-    'IMREAD_REDUCED_GRAYSCALE_4',
-    'IMREAD_REDUCED_GRAYSCALE_8',
-    'IMREAD_UNCHANGED',
-]
-
 # If set, the image is read in any possible color format.
 IMREAD_ANYCOLOR = 4
 # If set, return 16-bit/32-bit image when the input has the corresponding depth, otherwise convert it to 8-bit.
@@ -45,11 +24,3 @@ IMREAD_REDUCED_GRAYSCALE_4 = 32
 IMREAD_REDUCED_GRAYSCALE_8 = 64
 # If set, return the loaded image as is (with alpha channel, otherwise it gets cropped). Ignore EXIF orientation.
 IMREAD_UNCHANGED = -1
-
-
-def imread(filename: str, flag: int = IMREAD_COLOR) -> np.ndarray:
-    return cv2.imread(filename, flag)
-
-
-def imwrite(filename: str, image: np.ndarray) -> bool:
-    return cv2.imwrite(filename, image)

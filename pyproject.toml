@@ -8,7 +8,7 @@ packages = [{include = "snake_opencv"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-opencv-python = "^4.7.0.68"
+opencv-python = "^4.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^0.991"
