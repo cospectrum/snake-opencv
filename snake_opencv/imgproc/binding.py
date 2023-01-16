@@ -68,14 +68,14 @@ def cvt_color(
 
 X = int
 Y = int
-Color = Union[Tuple, int]
+Scalar = Union[Tuple[float, ...], float]
 
 
 def rectangle(
     image: np.ndarray,
     pt1: Tuple[X, Y],
     pt2: Tuple[X, Y],
-    color: Color,
+    color: Scalar,
     thickness: int = 1,
     line_type: LineType = 8,
     shift: int = 0,
@@ -87,7 +87,7 @@ def circle(
     image: np.ndarray,
     center: Tuple[X, Y],
     radius: int,
-    color: Color,
+    color: Scalar,
     thickness: int = 1,
     line_type: LineType = 8,
     shift: int = 0,
@@ -107,7 +107,7 @@ def line(
     image: np.ndarray,
     pt1: Tuple[X, Y],
     pt2: Tuple[X, Y],
-    color: Color,
+    color: Scalar,
     thickness: int = 1,
     line_type: LineType = 8,
     shift: int = 0,
@@ -121,7 +121,7 @@ def put_text(
     org: Tuple[X, Y],
     font_face: int,
     font_scale: float,
-    color: Color,
+    color: Scalar,
     thickness: int = 1,
     line_type: LineType = 8,
     bottom_left_origin: bool = False,
@@ -188,7 +188,7 @@ def draw_contours(
     image: np.ndarray,
     contours: Contours,
     contour_idx: int,
-    color: Color,
+    color: Scalar,
     thickness: int = 1,
     line_type: LineType = 8,
     hierarchy: Optional[Hierarchy] = None,
@@ -328,7 +328,7 @@ def warp_perspective(
     dst: Optional[np.ndarray] = None,
     flag: int = INTER_LINEAR,
     border_mode: int = BORDER_CONSTANT,
-    border_value: Optional[Tuple[float, ...]] = None,
+    border_value: Optional[Scalar] = None,
 ) -> np.ndarray:
     """Applies a perspective transformation to an image.
 

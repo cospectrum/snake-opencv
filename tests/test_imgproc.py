@@ -42,24 +42,38 @@ def test_cvt_color(test_image: np.ndarray) -> None:
 
 
 def test_rectangle(test_image: np.ndarray) -> None:
-    start_point = (1, 1)
-    end_point = (40, 40)
-    color = (24, 24, 0)
+    pt1 = (1, 1)
+    pt2 = (40, 40)
+    color = (0, 5, 25)
 
     left = cv.rectangle(
         test_image,
-        start_point,
-        end_point,
+        pt1,
+        pt2,
         color=color,
     )
     right = cv2.rectangle(
         test_image,
-        start_point,
-        end_point,
+        pt1,
+        pt2,
         color,
     )
     assert eq(left, right)
-    assert not eq(-left, right)
+
+    image = cv.cvt_color(test_image, cv.COLOR_BGR2GRAY)
+    left = cv.rectangle(
+        image,
+        pt1,
+        pt2,
+        color
+    )
+    right = cv2.rectangle(
+        image,
+        pt1,
+        pt2,
+        color
+    )
+    assert eq(left, right)
 
 
 def test_circle(test_image: np.ndarray) -> None:
