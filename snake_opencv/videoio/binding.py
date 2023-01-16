@@ -19,7 +19,7 @@ __all__ = [
 
 
 class VideoCapture:
-    _video: cv2.VideoCapture
+    _reader: cv2.VideoCapture
 
     def __init__(
         self,
@@ -27,25 +27,25 @@ class VideoCapture:
         api_preference: int = CAP_ANY,
         params: Optional[List[int]] = None,
     ) -> None:
-        self._video = cv2.VideoCapture(filename, api_preference, params)
+        self._reader = cv2.VideoCapture(filename, api_preference, params)
 
     def is_opened(self) -> bool:
-        return self._video.isOpened()
+        return self._reader.isOpened()
 
     def read(self) -> Tuple[bool, np.ndarray]:
-        return self._video.read()
+        return self._reader.read()
 
     def release(self) -> None:
-        self._video.release()
+        self._reader.release()
 
     def get_backend_name(self) -> str:
-        return self._video.getBackendName()
+        return self._reader.getBackendName()
 
     def get(self, prop_id: int) -> float:
-        return self._video.get(prop_id)
+        return self._reader.get(prop_id)
 
     def set(self, prop_id: int, value: float) -> bool:
-        return self._video.set(prop_id, value)
+        return self._reader.set(prop_id, value)
 
     def __iter__(self) -> Iterator[np.ndarray]:
         while self.is_opened():

@@ -171,3 +171,34 @@ def test_rect() -> None:
     left_box = cv.box_points(left_rect)
     right_box = cv2.boxPoints(left_rect)
     assert eq(left_box, right_box)
+
+
+def test_perspective(chess_board: np.ndarray) -> None:
+    # top-left, top-right, bottom-right, bottom-left
+    src = np.array([
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [0, 1]
+    ]).astype(np.float32)
+    dst = 2 * src
+
+    transform = cv.get_perspective_transform(src, dst)
+    right_transform = cv2.getPerspectiveTransform(src, dst)
+    assert eq(transform, right_transform)
+
+    result = cv.warp_perspective(
+        chess_board,
+        transform,
+        dsize=get_size(chess_board),
+    )
+    right_result = cv2.warpPerspective(
+        chess_board,
+        transform,
+        dsize=get_size(chess_board),
+    )
+    assert eq(result, right_result)
+
+    cv.imshow('chess_board', chess_board)
+    cv.imshow('transformed chess_board', result)
+    cv.wait_key(4000)

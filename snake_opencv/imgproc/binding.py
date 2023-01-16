@@ -5,8 +5,10 @@ from typing import Tuple, Optional, Literal, Union
 
 from .const import INTER_LINEAR
 from ..core import (
+    BORDER_CONSTANT,
     BORDER_DEFAULT,
     CV_PI,
+    DECOMP_LU,
 )
 
 
@@ -25,6 +27,8 @@ __all__ = [
     'hough_lines_p',
     'min_area_rect',
     'box_points',
+    'get_perspective_transform',
+    'warp_perspective',
 ]
 
 
@@ -307,3 +311,53 @@ def box_points(
     points: Optional[np.ndarray] = None,
 ) -> np.ndarray:
     return cv2.boxPoints(box, points)
+
+
+def get_perspective_transform(
+    src: np.ndarray,
+    dst: np.ndarray,
+    solve_method: int = DECOMP_LU,
+) -> np.ndarray:
+    return cv2.getPerspectiveTransform(src, dst, solve_method)
+
+
+def warp_perspective(
+    src: np.ndarray,
+    m: np.ndarray,
+    dsize: Tuple[Width, Height],
+    dst: Optional[np.ndarray] = None,
+    flag: int = INTER_LINEAR,
+    border_mode: int = BORDER_CONSTANT,
+    border_value: Optional[Tuple[float, ...]] = None,
+) -> np.ndarray:
+    """Applies a perspective transformation to an image.
+
+    The function warpPerspective transforms the source image using the
+    specified matrix m.
+
+    Args:
+        src: input image.
+        m: 3x3 transformation matrix.
+        dsize: size of the output image.
+        dst: output image that has the size dsize and the same type as src.
+        flag:
+            combination of interpolation methods (#INTER_LINEAR or
+            #INTER_NEAREST) and the optional flag #WARP_INVERSE_MAP, that sets
+            m as the inverse transformation.
+        border_mode:
+            pixel extrapolation method (#BORDER_CONSTANT or
+            #BORDER_REPLICATE).
+        border_value:
+            value used in case of a constant border; by default, it equals 0.
+
+    Returns: output image that has the size dsize and the same type as src
+    """
+    return cv2.warpPerspective(
+        src,
+        m,
+        dsize,
+        dst,
+        flag,
+        border_mode,
+        border_value,
+    )
