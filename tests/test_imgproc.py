@@ -13,6 +13,14 @@ Height = int
 Size = Tuple[Width, Height]
 
 
+def get_size(image: np.ndarray) -> Size:
+    return tuple(reversed(image.shape[:2]))  # type: ignore
+
+
+def random_size(max_width: int = 3000, max_height: int = 3000) -> Size:
+    return (random.randint(1, max_width), random.randint(1, max_height))
+
+
 def test_resize(test_image: np.ndarray) -> None:
     img = test_image.copy()
     original_size = get_size(img)
@@ -112,9 +120,9 @@ def test_contours(test_image: np.ndarray) -> None:
     cv.wait_key(1000)
 
 
-def get_size(image: np.ndarray) -> Size:
-    return tuple(reversed(image.shape[:2]))  # type: ignore
-
-
-def random_size(max_width: int = 3000, max_height: int = 3000) -> Size:
-    return (random.randint(1, max_width), random.randint(1, max_height))
+def test_gaussian_blur(test_image: np.ndarray) -> None:
+    ksize = (3, 3)
+    sigma_x = 0.
+    left = cv.gaussian_blur(test_image, ksize, sigma_x)
+    right = cv2.GaussianBlur(test_image, ksize, sigma_x)
+    assert eq(left, right)

@@ -4,6 +4,7 @@ import numpy as np
 from typing import Tuple, Optional, Literal, Union
 
 from .const import INTER_LINEAR
+from ..core import BORDER_DEFAULT
 
 
 __all__ = [
@@ -15,6 +16,7 @@ __all__ = [
     'canny',
     'find_contours',
     'draw_contours',
+    'gaussian_blur',
 ]
 
 
@@ -222,3 +224,14 @@ def draw_contours(
         max_level,
         offset,
     )
+
+
+def gaussian_blur(
+    src: np.ndarray,
+    ksize: Tuple[int, int],
+    sigma_x: float,
+    dst: Optional[np.ndarray] = None,
+    sigma_y: float = 0.,
+    border_type: int = BORDER_DEFAULT,
+) -> np.ndarray:
+    return cv2.GaussianBlur(src, ksize, sigma_x, dst, sigma_y, border_type)
