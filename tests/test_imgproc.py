@@ -216,3 +216,14 @@ def test_perspective(chess_board: np.ndarray) -> None:
     cv.imshow('chess_board', chess_board)
     cv.imshow('transformed chess_board', result)
     cv.wait_key(4000)
+
+
+def test_fill_poly(test_image: np.ndarray) -> None:
+    poly = [(2 * x, 2 * x + 1) for x in range(50)]
+    array = np.array(poly)
+    pts = [array]
+    color = 0
+
+    left = cv.fill_poly(test_image.copy(), pts, color)
+    right = cv2.fillPoly(test_image.copy(), pts, color)
+    assert eq(left, right)

@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from typing import Tuple, Optional, Literal, Union
+from typing import Tuple, Optional, List, Literal, Union
 
 from .const import INTER_LINEAR
 from ..core import (
@@ -18,6 +18,7 @@ __all__ = [
     'rectangle',
     'circle',
     'line',
+    'fill_poly',
     'put_text',
     'canny',
     'find_contours',
@@ -113,6 +114,17 @@ def line(
     shift: int = 0,
 ) -> np.ndarray:
     return cv2.line(image, pt1, pt2, color, thickness, line_type, shift)
+
+
+def fill_poly(
+    image: np.ndarray,
+    pts: List[np.ndarray],
+    color: Scalar,
+    line_type: LineType = 8,
+    shift: int = 0,
+    offset: Optional[tuple[X, Y]] = None,
+) -> np.ndarray:
+    return cv2.fillPoly(image, pts, color, line_type, shift, offset)
 
 
 def put_text(
