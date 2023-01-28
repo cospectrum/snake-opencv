@@ -16,7 +16,7 @@ DNN_BACKEND_DEFAULT = 0
 # DNN_BACKEND_OPENCV otherwise.
 DNN_BACKEND_HALIDE = 1
 # Intel OpenVINO computational backend
-# 
+#
 # Note: Tutorial how to build OpenCV with OpenVINO: @ref tutorial_dnn_openvino
 DNN_BACKEND_INFERENCE_ENGINE = 2
 DNN_BACKEND_OPENCV = 3
