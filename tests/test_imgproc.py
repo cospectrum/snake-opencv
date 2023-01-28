@@ -227,3 +227,10 @@ def test_fill_poly(test_image: np.ndarray) -> None:
     left = cv.fill_poly(test_image.copy(), pts, color)
     right = cv2.fillPoly(test_image.copy(), pts, color)
     assert eq(left, right)
+
+
+def test_laplacian(test_image: np.ndarray) -> None:
+    left = cv.laplacian(test_image, cv.CV_64F)
+    right = cv2.Laplacian(test_image, cv2.CV_64F)
+
+    assert eq(left, right)

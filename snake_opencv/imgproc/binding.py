@@ -30,6 +30,7 @@ __all__ = [
     'box_points',
     'get_perspective_transform',
     'warp_perspective',
+    'laplacian',
 ]
 
 
@@ -372,4 +373,24 @@ def warp_perspective(
         flag,
         border_mode,
         border_value,
+    )
+
+
+def laplacian(
+    src: np.ndarray,
+    ddepth: int,
+    dst: Optional[np.ndarray] = None,
+    ksize: int = 1,
+    scale: float = 1.0,
+    delta: float = 0.0,
+    border_type: int = BORDER_DEFAULT,
+) -> np.ndarray:
+    return cv2.Laplacian(
+        src,
+        ddepth,
+        dst,
+        ksize=ksize,
+        scale=scale,
+        delta=delta,
+        borderType=border_type,
     )
