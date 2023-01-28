@@ -19,7 +19,7 @@ def main() -> None:
         filename='./tmp.avi',
         fourcc=cv.VideoWriter.fourcc(*'MJPG'),
         fps=fps,
-        frame_size=(width, height)
+        frame_size=(width, height),
     )
 
     print('press "q" to exit the program')
