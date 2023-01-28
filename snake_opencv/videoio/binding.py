@@ -38,7 +38,7 @@ class VideoCapture:
         self._reader = cv2.VideoCapture(filename, api_preference, params)
 
     def is_opened(self) -> bool:
-        """Returns true if video capturing has been initialized already."""
+        """Returns True if video capturing has been initialized already."""
         return self._reader.isOpened()
 
     def read(self) -> Tuple[bool, np.ndarray]:
@@ -87,9 +87,10 @@ class VideoCapture:
         """Sets a property in the VideoCapture.
 
         Note:
-            Even if it returns true this doesn't ensure that the property
+            Even if it returns True this doesn't ensure that the property
             value has been accepted by the capture device. See note in
             VideoCapture.get()
+
         Args:
             prop_id:
                 Property identifier (eg. cv.CAP_PROP_POS_MSEC,
@@ -97,8 +98,9 @@ class VideoCapture:
                 for video I/O API backends
             value: Value of the property.
 
-        Returns
-            true if the property is supported by backend used by the VideoCapture instance.
+        Returns:
+            True if the property is supported by backend used by the
+            VideoCapture instance.
         """
         return self._reader.set(prop_id, value)
 
@@ -173,7 +175,7 @@ class VideoWriter:
         self._writer.release()
 
     def is_opened(self) -> bool:
-        """Returns true if video writer has been successfully initialized."""
+        """Returns True if video writer has been successfully initialized."""
         return self._writer.isOpened()
 
     @staticmethod
@@ -218,7 +220,8 @@ class VideoWriter:
                 of Additional flags for video I/O API backends
             value: Value of the property.
 
-        Returns: true if the property is supported by the backend used by the
-        VideoWriter instance.
+        Returns:
+            True if the property is supported by the backend used by the
+            VideoWriter instance.
         """
         return self._writer.set(prop_id, value)
