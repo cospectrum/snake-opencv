@@ -232,5 +232,12 @@ def test_fill_poly(test_image: np.ndarray) -> None:
 def test_laplacian(test_image: np.ndarray) -> None:
     left = cv.laplacian(test_image, cv.CV_64F)
     right = cv2.Laplacian(test_image, cv2.CV_64F)
-
     assert eq(left, right)
+
+
+def test_threshold(test_image: np.ndarray) -> None:
+    left = cv.threshold(test_image, 120, 255, cv.THRESH_BINARY)
+    right = cv2.threshold(test_image, 120, 255, cv.THRESH_BINARY)
+
+    assert left[0] == right[0]
+    assert eq(left[1], right[1])
