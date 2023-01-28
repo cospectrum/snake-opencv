@@ -9,7 +9,7 @@ from typing import (
     Union,
 )
 
-from .const import CAP_ANY
+from .const import CAP_ANY, CAP_PROP_FPS
 
 
 __all__ = [
@@ -46,6 +46,9 @@ class VideoCapture:
 
     def set(self, prop_id: int, value: float) -> bool:
         return self._reader.set(prop_id, value)
+
+    def fps(self) -> float:
+        return self.get(CAP_PROP_FPS)
 
     def __iter__(self) -> Iterator[np.ndarray]:
         while self.is_opened():

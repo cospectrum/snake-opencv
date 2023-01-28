@@ -106,7 +106,7 @@ def resize_window(window_name: str, width: int, height: int) -> None:
     Note:
         The specified window size is for the image area. Toolbars are not
         counted.
-        Only windows created without cv::WINDOW_AUTOSIZE flag can be resized.
+        Only windows created without cv.WINDOW_AUTOSIZE flag can be resized.
 
     Args:
         window_name: Window name.
