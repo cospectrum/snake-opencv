@@ -2,6 +2,7 @@
 name = "snake-opencv"
 version = "0.1.0"
 description = "Snake case opencv with type annotations"
+license = "Apache-2.0"
 authors = ["cospectrum <severinalexeyv@gmail.com>"]
 readme = "README.md"
 packages = [{include = "snake_opencv"}]
