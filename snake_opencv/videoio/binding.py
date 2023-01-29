@@ -201,7 +201,7 @@ class VideoWriter:
 
         Args:
             prop_id:
-                Property identifier (eg. cv::VIDEOWRITER_PROP_QUALITY) or one
+                Property identifier (eg. cv.VIDEOWRITER_PROP_QUALITY) or one
                 of Additional flags for video I/O API backends
 
         Returns:
@@ -216,7 +216,7 @@ class VideoWriter:
 
         Args:
             prop_id:
-                Property identifier (eg. cv::VIDEOWRITER_PROP_QUALITY) or one
+                Property identifier (eg. cv.VIDEOWRITER_PROP_QUALITY) or one
                 of Additional flags for video I/O API backends
             value: Value of the property.
 
