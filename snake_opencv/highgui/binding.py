@@ -60,7 +60,8 @@ def imshow(window_name: str, image: np.ndarray) -> None:
 def destroy_all_windows() -> None:
     """Destroys all of the HighGUI windows.
 
-    The function destroyAllWindows destroys all of the opened HighGUI windows.
+    The function destroy_all_windows destroys all of the opened HighGUI
+    windows.
     """
     cv2.destroyAllWindows()
 
@@ -68,7 +69,7 @@ def destroy_all_windows() -> None:
 def destroy_window(window_name: str) -> None:
     """Destroys the specified window.
 
-    The function destroyWindow destroys the window with the given name.
+    The function destroy_window destroys the window with the given name.
 
     Args:
         window_name: Name of the window to be destroyed.

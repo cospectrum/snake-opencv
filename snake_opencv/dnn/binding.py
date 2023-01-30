@@ -44,7 +44,7 @@ def blob_from_image(
             Depth of output blob. Choose CV_32F or CV_8U. If crop is true,
             input image is resized so one side after resize is equal to
             corresponding dimension in size and another one is equal or
-            larger. Then, crop from the center is performed. If rop is false,
+            larger. Then, crop from the center is performed. If crop is false,
             direct resize without cropping and preserving aspect ratio is
             performed.
 
@@ -92,7 +92,7 @@ def blob_from_images(
             Depth of output blob. Choose CV_32F or CV_8U. If crop is true,
             input image is resized so one side after resize is equal to
             corresponding dimension in size and another one is equal or
-            larger. Then, crop from the center is performed. If rop is false,
+            larger. Then, crop from the center is performed. If crop is false,
             direct resize without cropping and preserving aspect ratio is
             performed.
 
