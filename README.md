@@ -1,13 +1,12 @@
 # Snake-OpenCV
 Snake case OpenCV with type annotations for Python.
 
-Note: Still in early development
+Note: still in early development
 
 ## Install
 
 ```sh
-git clone https://github.com/cospectrum/snake-opencv.git
-cd snake-opencv && pip install .
+pip install snake-opencv
 ```
 
 ## Usage

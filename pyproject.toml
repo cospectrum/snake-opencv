@@ -1,6 +1,7 @@
 [tool.poetry]
 name = "snake-opencv"
 version = "0.1.0"
+repository = "https://github.com/cospectrum/snake-opencv"
 description = "Snake case opencv with type annotations"
 license = "Apache-2.0"
 authors = ["cospectrum <severinalexeyv@gmail.com>"]
