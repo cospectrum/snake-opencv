@@ -14,7 +14,8 @@ pip install snake-opencv
 import snake_opencv as cv
 
 image = cv.imread(path)
-image = cv.cvt_color(image, cv.COLOR_BGR2RGB)
+assert image is not None
+gray_image = cv.cvt_color(image, cv.COLOR_BGR2GRAY)
 
-cv.imshow(window_name, image) 
+cv.imshow(window_name, gray_image) 
 ```
