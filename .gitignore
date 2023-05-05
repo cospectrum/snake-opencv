@@ -130,6 +130,8 @@ dmypy.json
 
 
 
+# Custom
+
 .idea
 /*.png
 *.mp4

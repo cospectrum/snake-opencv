@@ -4,8 +4,8 @@ import numpy as np
 import snake_opencv as cv
 
 
-TEST_IMAGE_FILENAME = './tests/image_test.png'
-CHESS_BOARD = './tests/chess_board.png'
+TEST_IMAGE_FILENAME = './tests/res/image_test.png'
+CHESS_BOARD = './tests/res/chess_board.png'
 
 
 @pytest.fixture
