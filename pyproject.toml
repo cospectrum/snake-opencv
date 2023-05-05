@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snake-opencv"
-version = "0.1.0"
+version = "0.1.1"
 repository = "https://github.com/cospectrum/snake-opencv"
 description = "Snake case opencv with type annotations"
 license = "Apache-2.0"
@@ -16,6 +16,8 @@ opencv-python = "^4.0"
 mypy = "^0.991"
 flake8 = "^6.0.0"
 pytest = "^7.2.0"
+pre-commit = "^3.3.1"
+pyright = "^1.1.306"
 
 [tool.mypy]
 ignore_missing_imports = true

@@ -241,3 +241,13 @@ def test_threshold(test_image: np.ndarray) -> None:
 
     assert left[0] == right[0]
     assert eq(left[1], right[1])
+
+
+def test_connected_components_with_stats(gray_image: np.ndarray) -> None:
+    left_val, *left = cv.connected_components_with_stats(gray_image.copy())
+    right_val, *right = cv2.connectedComponentsWithStats(gray_image.copy())
+
+    assert left_val == right_val
+
+    for lval, rval in zip(left, right):
+        assert eq(lval, rval)

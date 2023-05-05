@@ -2,12 +2,15 @@ import cv2
 import numpy as np
 
 from typing import Tuple, Optional, List, Literal, Union
+from typing_extensions import TypeAlias
+
 
 from .const import INTER_LINEAR
 from ..core import (
     BORDER_CONSTANT,
     BORDER_DEFAULT,
     CV_PI,
+    CV_32S,
     DECOMP_LU,
 )
 
@@ -32,6 +35,7 @@ __all__ = [
     'warp_perspective',
     'laplacian',
     'threshold',
+    'connected_components_with_stats',
 ]
 
 
@@ -370,7 +374,7 @@ def canny(
 
 
 Contours = Tuple[np.ndarray, ...]
-Hierarchy = np.ndarray
+Hierarchy: TypeAlias = np.ndarray
 
 
 def find_contours(
@@ -805,4 +809,59 @@ def threshold(
         maxval,
         type=type,
         dst=dst,
+    )
+
+
+Labels: TypeAlias = np.ndarray
+Stats: TypeAlias = np.ndarray
+Centroids: TypeAlias = np.ndarray
+
+
+def connected_components_with_stats(
+    image: np.ndarray,
+    labels: Optional[np.ndarray] = None,
+    stats: Optional[np.ndarray] = None,
+    centroids: Optional[np.ndarray] = None,
+    connectivity: Literal[4, 8] = 8,
+    ltype: int = CV_32S,
+) -> Tuple[int, Labels, Stats, Centroids]:
+    """computes the connected components labeled image of boolean image and
+    also produces a statistics output for each label
+
+    image with 4 or 8 way connectivity - returns N, the total number of labels
+    [0, N-1] where 0 represents the background label. ltype specifies the
+    output label image type, an important consideration based on the total
+    number of labels or alternatively the total number of pixels in the source
+    image. ccltype specifies the connected components labeling algorithm to
+    use, currently Bolelli (Spaghetti) Bolelli2019, Grana (BBDT) Grana2010 and
+    Wu’s (SAUF) Wu2009 algorithms are supported, see the
+    #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm
+    forces a row major ordering of labels while Spaghetti and BBDT do not. This
+    function uses parallel version of the algorithms (statistics included) if
+    at least one allowed parallel framework is enabled and if the rows of the
+    image are at least twice the number returned by #getNumberOfCPUs.
+
+    Args:
+        image: the 8-bit single-channel image to be labeled
+        labels: destination labeled image
+        stats:
+            statistics output for each label, including the background label.
+            Statistics are accessed via stats(label, COLUMN) where COLUMN is
+            one of #ConnectedComponentsTypes, selecting the statistic. The data
+            type is CV_32S.
+        centroids:
+            centroid output for each label, including the background label.
+            Centroids are accessed via centroids(label, 0) for x and
+            centroids(label, 1) for y. The data type CV_64F.
+        connectivity: 8 or 4 for 8-way or 4-way connectivity respectively
+        ltype:
+            output image label type. Currently CV_32S and CV_16U are supported.
+    """
+    return cv2.connectedComponentsWithStats(
+        image,
+        labels=labels,
+        stats=stats,
+        centroids=centroids,
+        connectivity=connectivity,
+        ltype=ltype,
     )

@@ -21,6 +21,13 @@ def test_image(image_path) -> np.ndarray:
 
 
 @pytest.fixture
+def gray_image(image_path) -> np.ndarray:
+    image = cv.imread(image_path, cv.IMREAD_GRAYSCALE)
+    assert image is not None
+    return image
+
+
+@pytest.fixture
 def chess_board() -> np.ndarray:
     image = cv.imread(CHESS_BOARD)
     assert image is not None
