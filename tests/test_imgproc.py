@@ -251,3 +251,12 @@ def test_connected_components_with_stats(gray_image: np.ndarray) -> None:
 
     for lval, rval in zip(left, right):
         assert eq(lval, rval)
+
+
+def test_connected_components(gray_image: np.ndarray) -> None:
+    left = cv.connected_components(gray_image.copy())
+    right = cv2.connectedComponents(gray_image.copy())
+
+    assert left[0] == right[0]
+    assert eq(left[1], right[1])
+    assert isinstance(left[0], int)

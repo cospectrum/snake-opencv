@@ -36,6 +36,7 @@ __all__ = [
     'laplacian',
     'threshold',
     'connected_components_with_stats',
+    'connected_components',
 ]
 
 
@@ -862,6 +863,42 @@ def connected_components_with_stats(
         labels=labels,
         stats=stats,
         centroids=centroids,
+        connectivity=connectivity,
+        ltype=ltype,
+    )
+
+
+def connected_components(
+    image: np.ndarray,
+    labels: Optional[np.ndarray] = None,
+    connectivity: Literal[4, 8] = 8,
+    ltype: int = CV_32S,
+) -> Tuple[int, Labels]:
+    """computes the connected components labeled image of boolean image
+
+    image with 4 or 8 way connectivity - returns N, the total number of labels
+    [0, N-1] where 0 represents the background label. ltype specifies the
+    output label image type, an important consideration based on the total
+    number of labels or alternatively the total number of pixels in the source
+    image. ccltype specifies the connected components labeling algorithm to
+    use, currently Bolelli (Spaghetti) Bolelli2019, Grana (BBDT) Grana2010 and
+    Wu’s (SAUF) Wu2009 algorithms are supported, see the
+    #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm
+    forces a row major ordering of labels while Spaghetti and BBDT do not.
+    This function uses parallel version of the algorithms if at least one
+    allowed parallel framework is enabled and if the rows of the image are at
+    least twice the number returned by #getNumberOfCPUs.
+
+    Args:
+        image: the 8-bit single-channel image to be labeled
+        labels: destination labeled image
+        connectivity: 8 or 4 for 8-way or 4-way connectivity respectively
+        ltype:
+            output image label type. Currently CV_32S and CV_16U are supported.
+    """
+    return cv2.connectedComponents(
+        image,
+        labels=labels,
         connectivity=connectivity,
         ltype=ltype,
     )
