@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from typing import Optional
+from typing import Optional, Tuple
 
 
 __all__ = [
@@ -12,6 +12,7 @@ __all__ = [
     'bitwise_not',
     'bitwise_or',
     'bitwise_xor',
+    'min_max_loc',
 ]
 
 
@@ -312,3 +313,46 @@ def bitwise_xor(
             elements of the output array to be changed.
     """
     return cv2.bitwise_xor(src1, src2, dst=dst, mask=mask)
+
+
+X = int
+Y = int
+
+MinVal = float
+MaxVal = float
+MinLoc = Tuple[X, Y]
+MaxLoc = Tuple[X, Y]
+
+
+def min_max_loc(
+    src: np.ndarray,
+    mask: Optional[np.ndarray] = None,
+) -> Tuple[MinVal, MaxVal, MinLoc, MaxLoc]:
+    """Finds the global minimum and maximum in an array.
+
+    The function cv::minMaxLoc finds the minimum and maximum element values and
+    their positions. The extremums are searched across the whole array or, if
+    mask is not an empty array, in the specified array region.
+
+    The function do not work with multi-channel arrays. If you need to find
+    minimum or maximum elements across all the channels, use Mat::reshape first
+    to reinterpret the array as single-channel. Or you may extract the
+    particular channel using either extractImageCOI, or mixChannels, or split.
+
+    Args:
+        src: input single-channel array.
+        minVal:
+            pointer to the returned minimum value; NULL is used if not
+            required.
+        maxVal:
+            pointer to the returned maximum value; NULL is used if not
+            required.
+        minLoc:
+            pointer to the returned minimum location (in 2D case); NULL is used
+            if not required.
+        maxLoc:
+            pointer to the returned maximum location (in 2D case); NULL is used
+            if not required.
+        mask: optional mask used to select a sub-array.
+    """
+    return cv2.minMaxLoc(src, mask)

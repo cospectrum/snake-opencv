@@ -58,3 +58,10 @@ def test_bitwise_xor() -> None:
     left = cv.bitwise_xor(img1, img2)
     right = cv2.bitwise_xor(img1, img2)
     assert eq(left, right)
+
+
+def test_min_max_loc() -> None:
+    x = np.random.random(100)
+    left = cv.min_max_loc(x)
+    right = cv2.minMaxLoc(x)
+    assert left == right
