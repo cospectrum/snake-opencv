@@ -260,3 +260,17 @@ def test_connected_components(gray_image: np.ndarray) -> None:
     assert left[0] == right[0]
     assert eq(left[1], right[1])
     assert isinstance(left[0], int)
+
+
+def test_match_template(gray_image: np.ndarray) -> None:
+    w, h = get_size(gray_image)
+    rand_w = random.randint(1, w - 1)
+    rand_h = random.randint(1, w - 1)
+    templ = gray_image[rand_h:h, rand_w:w]
+
+    method = cv.TM_CCOEFF
+    assert method == cv2.TM_CCOEFF
+
+    left = cv.match_template(gray_image, templ, method=method)
+    right = cv2.matchTemplate(gray_image, templ, method=method)
+    assert eq(left, right)
