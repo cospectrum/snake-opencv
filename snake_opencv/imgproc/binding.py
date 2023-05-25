@@ -38,6 +38,8 @@ __all__ = [
     'connected_components_with_stats',
     'connected_components',
     'match_template',
+    'warp_affine',
+    'get_affine_transform',
 ]
 
 
@@ -94,7 +96,7 @@ def resize(
             computed as dsize.height / src.rows
         interpolation: interpolation method, see #InterpolationFlags
     """
-    return cv2.resize(
+    return cv2.resize(  # type: ignore
         src,
         dsize,
         dst,
@@ -158,7 +160,7 @@ def cvt_color(
             0, the number of the channels is derived automatically from src
             and code.
     """
-    return cv2.cvtColor(src, code, dst, dst_cn)
+    return cv2.cvtColor(src, code, dst, dst_cn)  # type: ignore
 
 
 X = int
@@ -192,7 +194,7 @@ def rectangle(
         line_type: Type of the line. See #LineTypes
         shift: Number of fractional bits in the point coordinates.
     """
-    return cv2.rectangle(image, pt1, pt2, color, thickness, line_type, shift)
+    return cv2.rectangle(image, pt1, pt2, color, thickness, line_type, shift)  # type: ignore
 
 
 def circle(
@@ -222,7 +224,7 @@ def circle(
             Number of fractional bits in the coordinates of the center and in
             the radius value.
     """
-    return cv2.circle(
+    return cv2.circle(  # type: ignore
         image,
         center,
         radius,
@@ -259,7 +261,7 @@ def line(
         line_type: Type of the line. See #LineTypes.
         shift: Number of fractional bits in the point coordinates.
     """
-    return cv2.line(image, pt1, pt2, color, thickness, line_type, shift)
+    return cv2.line(image, pt1, pt2, color, thickness, line_type, shift)  # type: ignore
 
 
 def fill_poly(
@@ -287,7 +289,7 @@ def fill_poly(
         shift: Number of fractional bits in the vertex coordinates.
         offset: Optional offset of all points of the contours.
     """
-    return cv2.fillPoly(image, pts, color, line_type, shift, offset)
+    return cv2.fillPoly(image, pts, color, line_type, shift, offset)  # type: ignore
 
 
 def put_text(
@@ -322,7 +324,7 @@ def put_text(
             When true, the image data origin is at the bottom-left corner.
             Otherwise, it is at the top-left corner.
     """
-    return cv2.putText(
+    return cv2.putText(  # type: ignore
         image,
         text,
         org,
@@ -365,7 +367,7 @@ def canny(
             the image gradient magnitude (l2gradient=true), or whether the
             default l1-norm = |dI/dx| + |dI/dy| is enough (l2gradient=false).
     """
-    return cv2.Canny(
+    return cv2.Canny(  # type: ignore
         image,
         threshold1,
         threshold2,
@@ -408,7 +410,7 @@ def find_contours(
             useful if the contours are extracted from the image ROI and then
             they should be analyzed in the whole image context.
     """
-    return cv2.findContours(image, mode=mode, method=method, offset=offset)
+    return cv2.findContours(image, mode=mode, method=method, offset=offset)  # type: ignore
 
 
 def draw_contours(
@@ -455,7 +457,7 @@ def draw_contours(
 
     Returns: destination image.
     """
-    return cv2.drawContours(
+    return cv2.drawContours(  # type: ignore
         image,
         contours,
         contour_idx,
@@ -503,7 +505,7 @@ def gaussian_blur(
             pixel extrapolation method, see #BorderTypes.
             #BORDER_WRAP is not supported.
     """
-    return cv2.GaussianBlur(src, ksize, sigma_x, dst, sigma_y, border_type)
+    return cv2.GaussianBlur(src, ksize, sigma_x, dst, sigma_y, border_type)  # type: ignore
 
 
 def hough_lines(
@@ -558,7 +560,7 @@ def hough_lines(
             maximum angle in the accumulator may be slightly less than
             max_theta, depending on the parameters min_theta and theta.
     """
-    return cv2.HoughLines(
+    return cv2.HoughLines(  # type: ignore
         image,
         rho=rho,
         theta=theta,
@@ -605,7 +607,7 @@ def hough_lines_p(
         max_line_gap:
             Maximum allowed gap between points on the same line to link them.
     """
-    return cv2.HoughLinesP(
+    return cv2.HoughLinesP(  # type: ignore
         image,
         rho,
         theta,
@@ -633,7 +635,7 @@ def min_area_rect(points: np.ndarray) -> RotatedRect:
     Args:
         points: Input vector of 2D points.
     """
-    return cv2.minAreaRect(points)
+    return cv2.minAreaRect(points)  # type: ignore
 
 
 def box_points(
@@ -653,7 +655,7 @@ def box_points(
         box: The input rotated rectangle. It may be the output of
         points: The output array of four vertices of rectangles.
     """
-    return cv2.boxPoints(box, points)
+    return cv2.boxPoints(box, points)  # type: ignore
 
 
 def get_perspective_transform(
@@ -671,7 +673,7 @@ def get_perspective_transform(
             destination image.
         solve_method: method passed to cv::solve (#DecompTypes)
     """
-    return cv2.getPerspectiveTransform(src, dst, solve_method)
+    return cv2.getPerspectiveTransform(src, dst, solve_method)  # type: ignore
 
 
 def warp_perspective(
@@ -705,7 +707,7 @@ def warp_perspective(
 
     Returns: output image that has the size dsize and the same type as src
     """
-    return cv2.warpPerspective(
+    return cv2.warpPerspective(  # type: ignore
         src,
         m,
         dsize,
@@ -757,7 +759,7 @@ def laplacian(
             Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not
             supported.
     """
-    return cv2.Laplacian(
+    return cv2.Laplacian(  # type: ignore
         src,
         ddepth,
         dst,
@@ -805,7 +807,7 @@ def threshold(
 
     Returns: the computed threshold value if Otsu’s or Triangle methods used.
     """
-    return cv2.threshold(
+    return cv2.threshold(  # type: ignore
         src,
         thresh,
         maxval,
@@ -859,7 +861,7 @@ def connected_components_with_stats(
         ltype:
             output image label type. Currently CV_32S and CV_16U are supported.
     """
-    return cv2.connectedComponentsWithStats(
+    return cv2.connectedComponentsWithStats(  # type: ignore
         image,
         labels=labels,
         stats=stats,
@@ -897,7 +899,7 @@ def connected_components(
         ltype:
             output image label type. Currently CV_32S and CV_16U are supported.
     """
-    return cv2.connectedComponents(
+    return cv2.connectedComponents(  # type: ignore
         image,
         labels=labels,
         connectivity=connectivity,
@@ -953,10 +955,76 @@ def match_template(
             tpye CV_32F, the mask values are used as weights. The exact
             formulas are documented in TemplateMatchModes.
     """
-    return cv2.matchTemplate(
+    return cv2.matchTemplate(  # type: ignore
         image,
         templ=templ,
         method=method,
         result=result,
         mask=mask,
     )
+
+
+def warp_affine(
+    src: np.ndarray,
+    m: np.ndarray,
+    dsize: Tuple[Width, Height],
+    dst: Optional[np.ndarray] = None,
+    flags: int = INTER_LINEAR,
+    border_mode: int = BORDER_CONSTANT,
+    border_value: Optional[Scalar] = None,
+) -> np.ndarray:
+    """Applies an affine transformation to an image.
+
+    The function warpAffine transforms the source image using the specified
+    matrix:
+        𝚍𝚜𝚝(x,y) = 𝚜𝚛𝚌(𝙼11x + 𝙼12y + 𝙼13, 𝙼21x + 𝙼22y + 𝙼23)
+
+    when the flag WARP_INVERSE_MAP is set. Otherwise, the transformation is
+    first inverted with invertAffineTransform and then put in the formula
+    above instead of M. The function cannot operate in-place.
+
+    Args:
+        src: input image.
+        dst: output image that has the size dsize and the same type as src.
+        M: 2×3 transformation matrix.
+        dsize: size of the output image.
+        flags:
+            combination of interpolation methods (see InterpolationFlags) and
+            the optional flag WARP_INVERSE_MAP that means that M is the
+            inverse transformation ( 𝚍𝚜𝚝→𝚜𝚛𝚌 ).
+        border_mode:
+            pixel extrapolation method (see BorderTypes); when
+            borderMode=BORDER_TRANSPARENT, it means that the pixels in the
+            destination image corresponding to the "outliers" in the source
+            image are not modified by the function.
+        border_value:
+            value used in case of a constant border; by default, it is 0.
+    """
+    return cv2.warpAffine(  # type: ignore
+        src,
+        m,
+        dsize=dsize,
+        dst=dst,
+        flags=flags,
+        borderMode=border_mode,
+        borderValue=border_value,
+    )
+
+
+def get_affine_transform(src: np.ndarray, dst: np.ndarray) -> np.ndarray:
+    """Calculates an affine transform from three pairs of the corresponding
+    points.
+
+    The function calculates the 2×3 matrix of an affine transform so that:
+        [x', y'].T == map_matrix * [x, y, 1].T
+
+    where
+        dst(i) = (x'i, y'i), src(i) = (xi, yi),  i = 0, 1, 2
+
+    Args:
+        src: Coordinates of triangle vertices in the source image.
+        dst:
+            Coordinates of the corresponding triangle vertices in the
+            destination image.
+    """
+    return cv2.getAffineTransform(src, dst=dst)  # type: ignore

@@ -132,8 +132,22 @@ dmypy.json
 
 # Custom
 
+/*
+
 .idea
 /*.png
 *.mp4
 *.avi
 scripts
+
+
+!.gitignore
+!snake_opencv
+!tests
+!pyproject.toml
+!poetry.lock
+!examples
+!README.md
+!tox.ini
+!.pre-commit-config.yaml
+!LICENSE

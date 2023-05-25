@@ -274,3 +274,27 @@ def test_match_template(gray_image: np.ndarray) -> None:
     left = cv.match_template(gray_image, templ, method=method)
     right = cv2.matchTemplate(gray_image, templ, method=method)
     assert eq(left, right)
+
+
+def test_warp_affine(gray_image: np.ndarray) -> None:
+    src = gray_image
+    src_ = np.array([
+        [0, 0],
+        [src.shape[1] - 1, 0], [0, src.shape[0] - 1]
+    ]).astype(np.float32)
+    dst = np.array([
+        [0, src.shape[1] * 0.33],
+        [src.shape[1] * 0.85, src.shape[0] * 0.25],
+        [src.shape[1] * 0.15, src.shape[0] * 0.7],
+    ]).astype(np.float32)
+
+    warp_mat = cv.get_affine_transform(src_, dst)
+    expect = cv2.getAffineTransform(src_, dst)
+    assert eq(warp_mat, expect)
+
+    h, w, *_ = src.shape
+    shape = (w, h)
+
+    left = cv.warp_affine(src_, warp_mat, shape)
+    right = cv2.warpAffine(src_, warp_mat, shape)
+    assert eq(left, right)
