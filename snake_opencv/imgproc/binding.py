@@ -41,6 +41,7 @@ __all__ = [
     'warp_affine',
     'get_affine_transform',
     'get_rotation_matrix_2d',
+    'median_blur',
 ]
 
 
@@ -1062,3 +1063,27 @@ def get_rotation_matrix_2d(
         scale: Isotropic scale factor.
     """
     return cv2.getRotationMatrix2D(center, angle, scale=scale)  # type: ignore
+
+
+def median_blur(
+    src: np.ndarray,
+    ksize: int,
+    dst: Optional[np.ndarray] = None,
+) -> np.ndarray:
+    """Blurs an image using the median filter.
+
+    The function smoothes an image using the median filter with the
+    𝚔𝚜𝚒𝚣𝚎×𝚔𝚜𝚒𝚣𝚎 aperture. Each channel of a multi-channel image is processed
+    independently. In-place operation is supported.
+
+    Args:
+        src:
+            input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image
+            depth should be CV_8U, CV_16U, or CV_32F, for larger aperture
+            sizes, it can only be CV_8U.
+        dst: destination array of the same size and type as src.
+        ksize:
+            aperture linear size; it must be odd and greater than 1, for
+            example: 3, 5, 7 ...
+    """
+    return cv2.medianBlur(src, ksize=ksize, dst=dst)  # type: ignore

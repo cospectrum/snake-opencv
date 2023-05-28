@@ -309,3 +309,10 @@ def test_get_rotation_matrix_2d() -> None:
     left = cv.get_rotation_matrix_2d(center, angle, scale=scale)
     right = cv2.getRotationMatrix2D(center, angle, scale=scale)  # type: ignore
     assert eq(left, right)
+
+
+def test_median_blur(gray_image: np.ndarray) -> None:
+    ksize = 3
+    left = cv.median_blur(gray_image, ksize)
+    right = cv2.medianBlur(gray_image, ksize)  # type: ignore
+    assert eq(left, right)
