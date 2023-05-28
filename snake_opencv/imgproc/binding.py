@@ -42,6 +42,7 @@ __all__ = [
     'get_affine_transform',
     'get_rotation_matrix_2d',
     'median_blur',
+    'blur',
 ]
 
 
@@ -1087,3 +1088,49 @@ def median_blur(
             example: 3, 5, 7 ...
     """
     return cv2.medianBlur(src, ksize=ksize, dst=dst)  # type: ignore
+
+
+def blur(
+    src: np.ndarray,
+    ksize: Tuple[int, int],
+    dst: Optional[np.ndarray] = None,
+    anchor: Tuple[int, int] = (-1, -1),
+    border_type: int = BORDER_DEFAULT,
+) -> np.ndarray:
+    """Blurs an image using the normalized box filter.
+
+    The function smooths an image using the kernel:
+
+        K = (1 / (ksize.width * ksize.height)) * J,
+
+    where
+
+        J = [1 1 1 ... 1 1]
+            [1 1 1 ... 1 1]
+            [...          ]
+            [1 1 1 ... 1 1]
+
+    The call blur(src, dst, ksize, anchor, borderType) is equivalent to
+    boxFilter(src, dst, src.type(), ksize, anchor, true, borderType).
+
+    Args:
+        src:
+            input image; it can have any number of channels, which are
+            processed independently, but the depth should be CV_8U, CV_16U,
+            CV_16S, CV_32F or CV_64F.
+        dst: output image of the same size and type as src.
+        ksize: blurring kernel size.
+        anchor:
+            anchor point; default value Point(-1,-1) means that the anchor is
+            at the kernel center.
+        border_type:
+            border mode used to extrapolate pixels outside of the image, see
+            BorderTypes. BORDER_WRAP is not supported.
+    """
+    return cv2.blur(  # type: ignore
+        src,
+        ksize,
+        dst=dst,
+        anchor=anchor,
+        borderType=border_type,
+    )

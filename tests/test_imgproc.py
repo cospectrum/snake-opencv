@@ -316,3 +316,10 @@ def test_median_blur(gray_image: np.ndarray) -> None:
     left = cv.median_blur(gray_image, ksize)
     right = cv2.medianBlur(gray_image, ksize)  # type: ignore
     assert eq(left, right)
+
+
+def test_blur(gray_image: np.ndarray) -> None:
+    ksize = (3, 3)
+    left = cv.blur(gray_image, ksize)
+    right = cv2.blur(gray_image, ksize)  # type: ignore
+    assert eq(left, right)
