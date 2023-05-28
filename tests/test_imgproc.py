@@ -323,3 +323,13 @@ def test_blur(gray_image: np.ndarray) -> None:
     left = cv.blur(gray_image, ksize)
     right = cv2.blur(gray_image, ksize)  # type: ignore
     assert eq(left, right)
+
+
+def test_bilateral_filter(gray_image: np.ndarray) -> None:
+    d = 11
+    sigma_color = 21
+    sigma_space = 7
+
+    left = cv.bilateral_filter(gray_image, d, sigma_color, sigma_space)
+    right = cv2.bilateralFilter(gray_image, d, sigma_color, sigma_space)
+    assert eq(left, right)
