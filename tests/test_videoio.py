@@ -31,7 +31,7 @@ def test_video_writer() -> None:
         filename='./video_tmp.avi',
         fourcc=cv.VideoWriter.fourcc(*'MJPG'),
         fps=10,
-        frame_size=(w, h)
+        frame_size=(w, h),
     )
 
     for _ in range(20):

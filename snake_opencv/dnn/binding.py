@@ -13,10 +13,14 @@ __all__ = [
 ]
 
 
+W = int
+H = int
+
+
 def blob_from_image(
     image: np.ndarray,
     scalefactor: float = 1.0,
-    size: Optional[Tuple[int, int]] = None,
+    size: Optional[Tuple[W, H]] = None,
     mean: Optional[Tuple[float, ...]] = None,
     swap_rb: bool = False,
     crop: bool = False,
@@ -50,7 +54,7 @@ def blob_from_image(
 
     Returns: 4-dimensional np.array with NCHW dimensions order.
     """
-    return cv2.dnn.blobFromImage(
+    return cv2.dnn.blobFromImage(  # type: ignore
         image,
         scalefactor,
         size,
@@ -64,7 +68,7 @@ def blob_from_image(
 def blob_from_images(
     images: List[np.ndarray],
     scalefactor: float = 1.0,
-    size: Optional[Tuple[int, int]] = None,
+    size: Optional[Tuple[W, H]] = None,
     mean: Optional[Tuple[float, ...]] = None,
     swap_rb: bool = False,
     crop: bool = False,
@@ -98,7 +102,7 @@ def blob_from_images(
 
     Returns: 4-dimensional np.array with NCHW dimensions order.
     """
-    return cv2.dnn.blobFromImages(
+    return cv2.dnn.blobFromImages(  # type: ignore
         images,
         scalefactor,
         size,

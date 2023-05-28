@@ -40,6 +40,7 @@ __all__ = [
     'match_template',
     'warp_affine',
     'get_affine_transform',
+    'get_rotation_matrix_2d',
 ]
 
 
@@ -1028,3 +1029,36 @@ def get_affine_transform(src: np.ndarray, dst: np.ndarray) -> np.ndarray:
             destination image.
     """
     return cv2.getAffineTransform(src, dst=dst)  # type: ignore
+
+
+Point2f = Tuple[float, float]
+
+
+def get_rotation_matrix_2d(
+    center: Point2f,
+    angle: float,
+    scale: float,
+) -> np.ndarray:
+    """Calculates an affine matrix of 2D rotation.
+
+    The function calculates the following matrix:
+
+        [ α   β   (1 − α)⋅𝚌𝚎𝚗𝚝𝚎𝚛.𝚡 − β⋅𝚌𝚎𝚗𝚝𝚎𝚛.𝚢]
+        [-β   α   β⋅𝚌𝚎𝚗𝚝𝚎𝚛.𝚡 + (1 − α)⋅𝚌𝚎𝚗𝚝𝚎𝚛.𝚢]
+
+    where
+        α = 𝚜𝚌𝚊𝚕𝚎⋅cos(𝚊𝚗𝚐𝚕𝚎),
+        β = 𝚜𝚌𝚊𝚕𝚎⋅sin(𝚊𝚗𝚐𝚕𝚎)
+
+    The transformation maps the rotation center to itself. If this is not the
+    target, adjust the shift.
+
+    Args:
+        center: Center of the rotation in the source image.
+        angle:
+            Rotation angle in degrees. Positive values mean counter-clockwise
+            rotation (the coordinate origin is assumed to be the top-left
+            corner).
+        scale: Isotropic scale factor.
+    """
+    return cv2.getRotationMatrix2D(center, angle, scale=scale)  # type: ignore

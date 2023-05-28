@@ -19,7 +19,7 @@ __all__ = [
 
 
 class VideoCapture:
-    _reader: cv2.VideoCapture
+    _reader: cv2.VideoCapture  # type: ignore
 
     def __init__(
         self,
@@ -35,7 +35,7 @@ class VideoCapture:
         The params parameter allows to specify extra parameters encoded as
         pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ...).
         """
-        self._reader = cv2.VideoCapture(filename, api_preference, params)
+        self._reader = cv2.VideoCapture(filename, api_preference, params)  # type: ignore
 
     def is_opened(self) -> bool:
         """Returns True if video capturing has been initialized already."""
@@ -124,7 +124,7 @@ Height = int
 
 
 class VideoWriter:
-    _writer: cv2.VideoWriter
+    _writer: cv2.VideoWriter  # type: ignore
 
     def __init__(
         self,
@@ -150,7 +150,7 @@ class VideoWriter:
             fps: Framerate of the created video stream.
             frame_size: Size (width, height) of the video frames
         """
-        self._writer = cv2.VideoWriter(
+        self._writer = cv2.VideoWriter(  # type: ignore
             filename,
             fourcc,
             fps,
@@ -187,7 +187,7 @@ class VideoWriter:
 
         Returns: a fourcc code
         """
-        return cv2.VideoWriter.fourcc(c1, c2, c3, c4)
+        return cv2.VideoWriter.fourcc(c1, c2, c3, c4)  # type: ignore
 
     def get_backend_name(self) -> str:
         """Returns used backend API name.

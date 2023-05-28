@@ -255,7 +255,7 @@ def test_connected_components_with_stats(gray_image: np.ndarray) -> None:
 
 def test_connected_components(gray_image: np.ndarray) -> None:
     left = cv.connected_components(gray_image.copy())
-    right = cv2.connectedComponents(gray_image.copy())
+    right = cv2.connectedComponents(gray_image.copy())  # type: ignore
 
     assert left[0] == right[0]
     assert eq(left[1], right[1])
@@ -269,7 +269,7 @@ def test_match_template(gray_image: np.ndarray) -> None:
     templ = gray_image[rand_h:h, rand_w:w]
 
     method = cv.TM_CCOEFF
-    assert method == cv2.TM_CCOEFF
+    assert method == cv2.TM_CCOEFF  # type: ignore
 
     left = cv.match_template(gray_image, templ, method=method)
     right = cv2.matchTemplate(gray_image, templ, method=method)
@@ -289,12 +289,23 @@ def test_warp_affine(gray_image: np.ndarray) -> None:
     ]).astype(np.float32)
 
     warp_mat = cv.get_affine_transform(src_, dst)
-    expect = cv2.getAffineTransform(src_, dst)
+    expect = cv2.getAffineTransform(src_, dst)  # type: ignore
     assert eq(warp_mat, expect)
 
     h, w, *_ = src.shape
     shape = (w, h)
 
     left = cv.warp_affine(src_, warp_mat, shape)
-    right = cv2.warpAffine(src_, warp_mat, shape)
+    right = cv2.warpAffine(src_, warp_mat, shape)  # type: ignore
+    assert eq(left, right)
+
+
+def test_get_rotation_matrix_2d() -> None:
+    w, h = random_size()
+    center = (w / 2, h / 2)
+    angle = random.uniform(-180, 180)
+    scale = random.uniform(0, 10)
+
+    left = cv.get_rotation_matrix_2d(center, angle, scale=scale)
+    right = cv2.getRotationMatrix2D(center, angle, scale=scale)  # type: ignore
     assert eq(left, right)
