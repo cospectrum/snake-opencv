@@ -44,11 +44,11 @@ __all__ = [
     'median_blur',
     'blur',
     'bilateral_filter',
+    'point_polygon_test',
 ]
 
 
 LineType = Literal[-1, 4, 8, 16]
-
 
 Width = int
 Height = int
@@ -1192,3 +1192,31 @@ def bilateral_filter(
         dst=dst,
         borderType=border_type,
     )
+
+
+def point_polygon_test(
+    contour: np.ndarray,
+    pt: Point2f,
+    measure_dist: bool,
+) -> float:
+    """Performs a point-in-contour test.
+
+    The function determines whether the point is inside a contour, outside, or
+    lies on an edge (or coincides with a vertex). It returns positive (inside),
+    negative (outside), or zero (on an edge) value, correspondingly. When
+    measureDist=false , the return value is +1, -1, and 0, respectively.
+    Otherwise, the return value is a signed distance between the point and the
+    nearest contour edge.
+
+    See below a sample output of the function where each image pixel is tested
+    against the contour:
+
+    Args:
+        contour: Input contour.
+        pt: Point tested against the contour.
+        measure_dist:
+            If true, the function estimates the signed distance from the point
+            to the nearest contour edge. Otherwise, the function only checks if
+            the point is inside a contour or not.
+    """
+    return cv2.pointPolygonTest(contour, pt, measure_dist)  # type: ignore

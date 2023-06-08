@@ -333,3 +333,18 @@ def test_bilateral_filter(gray_image: np.ndarray) -> None:
     left = cv.bilateral_filter(gray_image, d, sigma_color, sigma_space)
     right = cv2.bilateralFilter(gray_image, d, sigma_color, sigma_space)
     assert eq(left, right)
+
+
+def test_point_polygon_test(gray_image: np.ndarray) -> None:
+    contours, _ = cv.find_contours(
+        gray_image, mode=cv.RETR_TREE, method=cv.CHAIN_APPROX_NONE)
+    contour = contours[0]
+
+    h, w = gray_image.shape
+    point = (random.randint(0, w), random.randint(0, h))
+
+    left = cv.point_polygon_test(contour, point, measure_dist=True)
+    assert isinstance(left, float)
+    right = cv2.pointPolygonTest(contour, point, True)
+
+    assert left == right
