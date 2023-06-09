@@ -115,22 +115,22 @@ def test_canny(test_image: np.ndarray) -> None:
 
 def test_contours(test_image: np.ndarray) -> None:
     edges = cv.canny(test_image, 30, 200)
-    contoures, hierarchy = cv.find_contours(
+    contours, hierarchy = cv.find_contours(
         edges,
         cv.RETR_EXTERNAL,
         cv.CHAIN_APPROX_NONE,
     )
-    right_contoures, right_hierarchy = cv2.findContours(
+    right_contours, right_hierarchy = cv2.findContours(  # type: ignore
         edges,
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_NONE,
+        cv2.RETR_EXTERNAL,  # type: ignore
+        cv2.CHAIN_APPROX_NONE,  # type: ignore
     )
-    for left, right in zip(contoures, right_contoures):
+    for left, right in zip(contours, right_contours):  # type: ignore
         assert eq(left, right)
 
     assert eq(hierarchy, right_hierarchy)
-    cv.draw_contours(edges, contoures, contour_idx=-1, color=(0, 255, 0))
-    cv.imshow('contoures', edges)
+    cv.draw_contours(edges, contours, contour_idx=-1, color=(0, 255, 0))
+    cv.imshow('contours', edges)
     cv.wait_key(1000)
 
 
@@ -345,6 +345,20 @@ def test_point_polygon_test(gray_image: np.ndarray) -> None:
 
     left = cv.point_polygon_test(contour, point, measure_dist=True)
     assert isinstance(left, float)
-    right = cv2.pointPolygonTest(contour, point, True)
+    right = cv2.pointPolygonTest(contour, point, True)  # type: ignore
 
     assert left == right
+
+
+def test_contour_area(test_image: np.ndarray) -> None:
+    edges = cv.canny(test_image, 30, 200)
+    contours, _ = cv.find_contours(
+        edges,
+        cv.RETR_EXTERNAL,
+        cv.CHAIN_APPROX_NONE,
+    )
+    contour = contours[0]
+    left = cv.contour_area(contour)
+    right = cv2.contourArea(contour)  # type: ignore
+    assert left == right
+    assert isinstance(left, float)

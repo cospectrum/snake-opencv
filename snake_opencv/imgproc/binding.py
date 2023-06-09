@@ -45,6 +45,7 @@ __all__ = [
     'blur',
     'bilateral_filter',
     'point_polygon_test',
+    'contour_area',
 ]
 
 
@@ -1220,3 +1221,27 @@ def point_polygon_test(
             the point is inside a contour or not.
     """
     return cv2.pointPolygonTest(contour, pt, measure_dist)  # type: ignore
+
+
+def contour_area(contour: np.ndarray, oriented: bool = False) -> float:
+    """Calculates a contour area.
+
+    The function computes a contour area. Similarly to moments , the area is
+    computed using the Green formula. Thus, the returned area and the number of
+    non-zero pixels, if you draw the contour using #drawContours or #fillPoly,
+    can be different. Also, the function will most certainly give a wrong
+    results for contours with self-intersections.
+
+    Args:
+        contour:
+            Input vector of 2D points (contour vertices), stored in std::vector
+            or Mat.
+        oriented:
+            Oriented area flag. If it is true, the function returns a signed
+            area value, depending on the contour orientation (clockwise or
+            counter-clockwise). Using this feature you can determine
+            orientation of a contour by taking the sign of an area. By default,
+            the parameter is false, which means that the absolute value is
+            returned.
+    """
+    return cv2.contourArea(contour, oriented)  # type: ignore
