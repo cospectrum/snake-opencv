@@ -46,6 +46,7 @@ __all__ = [
     'bilateral_filter',
     'point_polygon_test',
     'contour_area',
+    'convex_hull',
 ]
 
 
@@ -420,7 +421,7 @@ def find_contours(
 
 def draw_contours(
     image: np.ndarray,
-    contours: Contours,
+    contours: Union[Contours, List[np.ndarray]],
     contour_idx: int,
     color: Scalar,
     thickness: int = 1,
@@ -1245,3 +1246,43 @@ def contour_area(contour: np.ndarray, oriented: bool = False) -> float:
             returned.
     """
     return cv2.contourArea(contour, oriented)  # type: ignore
+
+
+def convex_hull(
+    points: np.ndarray,
+    hull: Optional[np.ndarray] = None,
+    clockwise: bool = False,
+    return_points: bool = True,
+) -> np.ndarray:
+    """Finds the convex hull of a point set.
+
+    The function cv::convexHull finds the convex hull of a 2D point set using
+    the Sklansky's algorithm [226] that has O(N logN) complexity in the current
+    implementation.
+
+    Args:
+        points: Input 2D point set, stored in std::vector or Mat.
+        hull:
+            Output convex hull. It is either an integer vector of indices or
+            vector of points. In the first case, the hull elements are 0-based
+            indices of the convex hull points in the original array (since the
+            set of convex hull points is a subset of the original point set).
+            In the second case, hull elements are the convex hull points
+            themselves.
+        clockwise:
+            Orientation flag. If it is true, the output convex hull is oriented
+            clockwise. Otherwise, it is oriented counter-clockwise. The assumed
+            coordinate system has its X axis pointing to the right, and its Y
+            axis pointing upwards.
+        return_points:
+            Operation flag. In case of a matrix, when the flag is true, the
+            function returns convex hull points. Otherwise, it returns indices
+            of the convex hull points. When the output array is std::vector,
+            the flag is ignored, and the output depends on the type of the
+            vector: std::vector<int> implies returnPoints=false,
+            std::vector<Point> implies returnPoints=true.
+
+    Note: points and hull should be different arrays, inplace processing isn't
+    supported.
+    """
+    return cv2.convexHull(points, hull, clockwise, return_points)  # type: ignore

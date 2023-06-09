@@ -350,15 +350,20 @@ def test_point_polygon_test(gray_image: np.ndarray) -> None:
     assert left == right
 
 
-def test_contour_area(test_image: np.ndarray) -> None:
-    edges = cv.canny(test_image, 30, 200)
+def test_contour_area(gray_image: np.ndarray) -> None:
     contours, _ = cv.find_contours(
-        edges,
-        cv.RETR_EXTERNAL,
-        cv.CHAIN_APPROX_NONE,
-    )
+        gray_image, mode=cv.RETR_TREE, method=cv.CHAIN_APPROX_NONE)
     contour = contours[0]
     left = cv.contour_area(contour)
     right = cv2.contourArea(contour)  # type: ignore
     assert left == right
     assert isinstance(left, float)
+
+
+def test_convex_hull(gray_image: np.ndarray) -> None:
+    contours, _ = cv.find_contours(
+        gray_image, mode=cv.RETR_TREE, method=cv.CHAIN_APPROX_NONE)
+    contour = contours[0]
+    left = cv.convex_hull(contour)
+    right = cv2.convexHull(contour)  # type: ignore
+    assert eq(left, right)
