@@ -47,6 +47,8 @@ __all__ = [
     'point_polygon_test',
     'contour_area',
     'convex_hull',
+    'approx_poly_dp',
+    'arc_length',
 ]
 
 
@@ -1286,3 +1288,43 @@ def convex_hull(
     supported.
     """
     return cv2.convexHull(points, hull, clockwise, return_points)  # type: ignore
+
+
+def arc_length(curve: np.ndarray, closed: bool) -> float:
+    """Calculates a contour perimeter or a curve length.
+
+    The function computes a curve length or a closed contour perimeter.
+
+    Args:
+        curve: Input vector of 2D points, stored in std::vector or Mat.
+        closed: Flag indicating whether the curve is closed or not.
+    """
+    return cv2.arcLength(curve, closed)  # type: ignore
+
+
+def approx_poly_dp(
+    curve: np.ndarray,
+    epsilon: float,
+    closed: bool,
+    approx_cruve: Optional[np.ndarray] = None,
+) -> np.ndarray:
+    """Approximates a polygonal curve(s) with the specified precision.
+
+    The function cv::approxPolyDP approximates a curve or a polygon with
+    another curve/polygon with less vertices so that the distance between them
+    is less or equal to the specified precision. It uses the Douglas-Peucker
+    algorithm http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm
+
+    Args:
+        curve: Input vector of a 2D point stored in std::vector or Mat
+        epsilon:
+            Parameter specifying the approximation accuracy. This is the
+            maximum distance between the original curve and its approximation.
+        closed:
+            If true, the approximated curve is closed (its first and last
+            vertices are connected). Otherwise, it is not closed.
+        approx_curve:
+            Result of the approximation. The type should match the type of the
+            input curve.
+    """
+    return cv2.approxPolyDP(curve, epsilon, closed, approx_cruve)  # type: ignore

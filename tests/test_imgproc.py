@@ -367,3 +367,25 @@ def test_convex_hull(gray_image: np.ndarray) -> None:
     left = cv.convex_hull(contour)
     right = cv2.convexHull(contour)  # type: ignore
     assert eq(left, right)
+
+
+def test_arc_length(gray_image: np.ndarray) -> None:
+    contours, _ = cv.find_contours(
+        gray_image, mode=cv.RETR_TREE, method=cv.CHAIN_APPROX_NONE)
+    curve = contours[0]
+    closed = True
+    left = cv.arc_length(curve, closed)
+    right = cv2.arcLength(curve, closed)  # type: ignore
+    assert isinstance(left, float)
+    assert left == right
+
+
+def test_approx_poly_dp(gray_image: np.ndarray) -> None:
+    contours, _ = cv.find_contours(
+        gray_image, mode=cv.RETR_TREE, method=cv.CHAIN_APPROX_NONE)
+    curve = contours[0]
+    closed = True
+    eps = 0.01 * cv.arc_length(curve, closed)
+    left = cv.approx_poly_dp(curve, eps, closed)
+    right = cv2.approxPolyDP(curve, eps, closed)  # type: ignore
+    assert eq(left, right)
