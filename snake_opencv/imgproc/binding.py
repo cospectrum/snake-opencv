@@ -689,7 +689,7 @@ def warp_perspective(
     m: np.ndarray,
     dsize: Tuple[Width, Height],
     dst: Optional[np.ndarray] = None,
-    flag: int = INTER_LINEAR,
+    flags: int = INTER_LINEAR,
     border_mode: int = BORDER_CONSTANT,
     border_value: Optional[Scalar] = None,
 ) -> np.ndarray:
@@ -703,7 +703,7 @@ def warp_perspective(
         m: 3x3 transformation matrix.
         dsize: size of the output image.
         dst: output image that has the size dsize and the same type as src.
-        flag:
+        flags:
             combination of interpolation methods (#INTER_LINEAR or
             #INTER_NEAREST) and the optional flag #WARP_INVERSE_MAP, that sets
             m as the inverse transformation.
@@ -720,7 +720,7 @@ def warp_perspective(
         m,
         dsize,
         dst,
-        flag,
+        flags,
         border_mode,
         border_value,
     )
