@@ -9,9 +9,9 @@ readme = "README.md"
 packages = [{include = "snake_opencv"}]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
-opencv-python = "^4.0"
-typing-extensions = "^4.5.0"
+python = "^3.8"
+opencv-python = "^4"
+typing-extensions = "^4"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^0.991"

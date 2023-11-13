@@ -135,7 +135,9 @@ dmypy.json
 /*
 
 .idea
-/*.png
+*.png
+*.jpg
+*.jpeg
 *.mp4
 *.avi
 scripts

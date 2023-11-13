@@ -1,4 +1,5 @@
 # Snake-OpenCV
+
 Snake case OpenCV with type annotations for Python.
 
 Note: still in early development
